@@ -1,13 +1,13 @@
 {
-  "name": "blackbar",
-  "displayName": "Blackbar",
-  "version": "0.1.2",
+  "name": "mask-that-pass",
+  "displayName": "Mask That Pass",
+  "version": "0.2.0",
   "description": "Masks credentials in tool output (URL passwords, *_TOKEN / *_SECRET / *_PASSWORD values, API keys, bearer tokens, private keys) before Claude or the transcript sees them. No network, files or processes.",
   "author": {
-    "name": "Blackbar contributors"
+    "name": "Mask That Pass contributors"
   },
-  "homepage": "https://github.com/myveroai/blackbar",
-  "repository": "https://github.com/myveroai/blackbar",
+  "homepage": "https://github.com/myveroai/mask-that-pass",
+  "repository": "https://github.com/myveroai/mask-that-pass",
   "icon": "./.claude-plugin/icon.png",
   "license": "MIT",
   "keywords": [

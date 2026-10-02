@@ -15,7 +15,7 @@ test('Bash output is masked in the result the screen and Claude get', async ($, 
   const out = await $.tool.call({ tool: 'Bash', command: 'cat .env' })
 
   expect(out).toMatchObject({ result: { stdout: MASKED, stderr: '' } })
-  expect(toasts).toEqual(['blackbar: masked 1 secret in Bash output'])
+  expect(toasts).toEqual(['mask-that-pass: masked 1 secret in Bash output'])
 })
 
 test('Bash output with nothing secret passes through untouched, without a toast', async ($, on) => {

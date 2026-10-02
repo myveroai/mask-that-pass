@@ -15,7 +15,7 @@ export const register: Register = on => {
     const stderr = redact(ran.result.stderr ?? '')
     const count = stdout.count + stderr.count
     if (count === 0) return ran
-    $.ui.toast(`blackbar: masked ${plural(count)} in Bash output`)
+    $.ui.toast(`mask-that-pass: masked ${plural(count)} in Bash output`)
     return {
       result: { ...ran.result, stdout: stdout.text, stderr: stderr.text },
       ...(ran.context ? { context: ran.context } : {}),
@@ -28,7 +28,7 @@ export const register: Register = on => {
     if (e.door !== 'tool-result') return next(e)
     const masked = redactToolResults(e.message.content)
     if (masked.count === 0) return next(e)
-    $.ui.toast(`blackbar: masked ${plural(masked.count)} in a tool result`)
+    $.ui.toast(`mask-that-pass: masked ${plural(masked.count)} in a tool result`)
     return next({ ...e, message: { ...e.message, content: masked.content } })
   })
 }

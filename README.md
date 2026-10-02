@@ -1,6 +1,6 @@
-# Blackbar
+# Mask That Pass
 
-Blackbar is a Claude Code mod that masks credentials in tool output before Claude or your transcript sees them. When a command prints a database URL, a token or a private key, Claude reads `[redacted]` in its place and you get a short toast saying how many values were masked.
+Mask That Pass is a Claude Code mod that masks credentials in tool output before Claude or your transcript sees them. When a command prints a database URL, a token or a private key, Claude reads `[redacted]` in its place and you get a short toast saying how many values were masked.
 
 ```text
 $ cat .env
@@ -29,7 +29,7 @@ A purely numeric value is left alone (`TOKEN_BUDGET=4000`, `MAX_TOKENS=8192`), a
 
 ## How it works
 
-Blackbar is two hooks in `hooks/register.ts`:
+Mask That Pass is two hooks in `hooks/register.ts`:
 
 - **`tool.call`, Bash only**: it lets the command run as usual (it calls `next`), then returns that same result with `stdout` and `stderr` masked. It never skips a command or answers in its place; when nothing needs masking it returns the tool's result untouched.
 - **`session.append`, tool-result rows only**: before a row holding tool results is stored, it masks the text inside each `tool_result` block, then passes the row on. It never appends a row of its own, and every other row (your prompts, Claude's replies) passes through unchanged.
@@ -38,29 +38,29 @@ Blackbar is two hooks in `hooks/register.ts`:
 
 - It does not mask what you type, what Claude writes in its replies, or the files Claude writes.
 - It does not change anything already in a conversation before you installed it.
-- It matches patterns. A secret in an unusual format, such as a bare password with no label, can get through. Treat Blackbar as a safety net, not as a reason to keep secrets where Claude can read them.
+- It matches patterns. A secret in an unusual format, such as a bare password with no label, can get through. Treat Mask That Pass as a safety net, not as a reason to keep secrets where Claude can read them.
 - When Claude needs a real value to finish a task (for example, copying a key into a config file), it sees `[redacted]` and cannot do it. The toast tells you when that happened.
 
 ## What it can reach
 
-Blackbar makes no network requests, reads and writes no files, starts no processes and calls no model. Its only call outside its own code is the toast. You can confirm that without running it:
+Mask That Pass makes no network requests, reads and writes no files, starts no processes and calls no model. Its only call outside its own code is the toast. You can confirm that without running it:
 
 ```bash
-claude plugin validate ./blackbar
+claude plugin validate ./mask-that-pass
 ```
 
 The `calls:` line lists `$.ui.toast` and nothing else.
 
 ## Install
 
-Blackbar needs Claude Code 2.1.287 or later, the first version with mods.
+Mask That Pass needs Claude Code 2.1.287 or later, the first version with mods.
 
 ```bash
-claude plugin marketplace add myveroai/blackbar
-claude plugin install blackbar@blackbar
+claude plugin marketplace add myveroai/mask-that-pass
+claude plugin install mask-that-pass@mask-that-pass
 ```
 
-Run `/reload-plugins` in an open session, or start a new one. To try it for one session without installing, clone https://github.com/myveroai/blackbar and run `claude --plugin-dir ./blackbar`.
+Run `/reload-plugins` in an open session, or start a new one. To try it for one session without installing, clone https://github.com/myveroai/mask-that-pass and run `claude --plugin-dir ./mask-that-pass`.
 
 To turn it off, disable or uninstall it from the **Installed** tab in `/plugin`.
 
