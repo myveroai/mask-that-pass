@@ -1,0 +1,20 @@
+{
+  "name": "blackbar",
+  "displayName": "Blackbar",
+  "version": "0.1.0",
+  "description": "Masks credentials in tool output (URL passwords, *_TOKEN / *_SECRET / *_PASSWORD values, API keys, bearer tokens, private keys) before Claude or the transcript sees them. No network, files or processes.",
+  "author": {
+    "name": "Blackbar contributors"
+  },
+  "homepage": "https://github.com/myveroai/blackbar",
+  "repository": "https://github.com/myveroai/blackbar",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "secrets",
+    "redaction",
+    "credentials",
+    "privacy",
+    "mod"
+  ]
+}

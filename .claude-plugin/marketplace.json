@@ -1,0 +1,12 @@
+{
+  "name": "blackbar",
+  "description": "Blackbar: masks credentials in Claude Code tool output",
+  "owner": { "name": "Blackbar contributors" },
+  "plugins": [
+    {
+      "name": "blackbar",
+      "source": "./",
+      "description": "Masks credentials in tool output before Claude or the transcript sees them"
+    }
+  ]
+}
