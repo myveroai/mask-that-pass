@@ -27,6 +27,13 @@ A purely numeric value is left alone (`TOKEN_BUDGET=4000`, `MAX_TOKENS=8192`), a
 - **Bash**: the command's output is rewritten in the tool's own result, so both your screen and Claude see the masked text.
 - **Every other tool** (Read, Grep, MCP tools, a Bash command that errored): the result is masked in what Claude reads and what the conversation transcript stores.
 
+## How it works
+
+Blackbar is two hooks in `hooks/register.ts`:
+
+- **`tool.call`, Bash only**: it lets the command run as usual (it calls `next`), then returns that same result with `stdout` and `stderr` masked. It never skips a command or answers in its place; when nothing needs masking it returns the tool's result untouched.
+- **`session.append`, tool-result rows only**: before a row holding tool results is stored, it masks the text inside each `tool_result` block, then passes the row on. It never appends a row of its own, and every other row (your prompts, Claude's replies) passes through unchanged.
+
 ## What it does not do
 
 - It does not mask what you type, what Claude writes in its replies, or the files Claude writes.

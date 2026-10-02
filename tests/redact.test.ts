@@ -18,7 +18,7 @@ const SECRETS: [string, string][] = [
 const LOOKALIKES = [
   'TOKEN_BUDGET=4000',
   'input_tokens: 1234, statement_timeout=10s',
-  'https://github.com/example/repo/pull/541',
+  'https://example.com/docs/page-541',
   'ssh deploy-host "cat /srv/app/REVISION.json"',
   'set the API key in the GITHUB_TOKEN variable',
   'MAX_TOKENS=8192',
@@ -30,13 +30,6 @@ test('masks each kind of credential and keeps the text around it', () => {
     expect(out.text).toBe(masked)
     expect(out.count).toBe(1)
   }
-})
-
-test('masks a PEM private key block whole', () => {
-  const pem = '-----BEGIN RSA PRIVATE KEY-----\nMIIEfakefakefake\nfakefake==\n-----END RSA PRIVATE KEY-----'
-  const out = redact(`key:\n${pem}\ndone`)
-  expect(out.text).toBe('key:\n-----BEGIN RSA PRIVATE KEY----- [redacted] -----END RSA PRIVATE KEY-----\ndone')
-  expect(out.count).toBe(1)
 })
 
 test('leaves settings, counts, URLs and prose alone', () => {

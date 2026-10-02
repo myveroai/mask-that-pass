@@ -11,7 +11,7 @@ const RULES: readonly Rule[] = [
     pattern: /-----BEGIN ([A-Z ]*)PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----/g,
     replace: (_m, kind) => `-----BEGIN ${kind}PRIVATE KEY----- ${MASK} -----END ${kind}PRIVATE KEY-----`,
   },
-  // Passwords in URLs: postgresql://user:secret@host, https://user:token@github.com
+  // Passwords in URLs: scheme://user:password@host keeps the scheme, user and host
   {
     pattern: /\b([a-z][a-z0-9+.-]*:\/\/[^\s:/@]+:)[^\s@/]+@/gi,
     replace: (_m, head) => `${head}${MASK}@`,
